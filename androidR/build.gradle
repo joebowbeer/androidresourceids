@@ -1,7 +1,0 @@
-apply plugin: 'java'
-
-jar {
-  from zipTree("${System.env.ANDROID_HOME}/platforms/android-25/android.jar").matching {
-    include "android/R*.class"
-  }
-}

@@ -18,8 +18,19 @@ repositories {
   mavenCentral()
 }
 
+task fakeAndroidJar(type: Jar) {
+  from zipTree("${System.env.ANDROID_HOME}/platforms/android-25/android.jar").matching {
+    include "android/R*.class"
+  }
+
+  // Have to rename not to produce the same jar as the 'jar' task.
+  baseName = 'fakeAndroidJar'
+}
+
+compileJava.dependsOn fakeAndroidJar
+
 dependencies {
-  compile project('androidR')
+  compile files(fakeAndroidJar.archivePath)
   testCompile group: 'junit', name: 'junit', version: '4.10'
 }
 
